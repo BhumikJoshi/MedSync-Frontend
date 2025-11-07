@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hospital Dashboard — MedSync</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/config.js"></script>
+</head>
+
+<body onload="requireRole('hospital'); initHospitalDashboard();">
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="navbar-left">Hospital Dashboard</div>
+    <div class="navbar-right">
+      <span id="username_display"></span>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Menu</h2>
+
+    <a href="#" data-tab="patients" class="active">Patients</a>
+    <a href="#" data-tab="upload">Upload Report</a>
+    <a href="#" data-tab="profile">Profile</a>
+
+    <div class="sidebar-footer">© 2025 MedSync</div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-content">
+
+    <!-- PATIENTS LIST -->
+    <section id="patients" class="tab-panel active">
+      <h1>Patients</h1>
+      <p class="muted">Patients you have sent reports to.</p>
+
+      <div id="patients_grid" class="grid"></div>
+    </section>
+
+    <!-- SINGLE PATIENT VIEW -->
+    <section id="patient_view" class="tab-panel">
+      <button id="back_to_patients" class="back-btn">← Back</button>
+      <h1 id="patient_title"></h1>
+      <div id="patient_reports" class="grid"></div>
+    </section>
+
+    <!-- UPLOAD -->
+    <section id="upload" class="tab-panel">
+      <h1>Upload Report</h1>
+      <p class="muted">Send a medical report to a patient using their CID.</p>
+
+      <div class="upload-wrapper">
+        <div class="upload-card">
+          <label class="form-label">Patient CID</label>
+          <input id="upload_cid" class="form-input" placeholder="CID-XXXXXXXX" />
+
+          <label class="form-label">Report File</label>
+          <div class="file-box">
+            <input type="file" id="upload_file" />
+          </div>
+
+          <button class="upload-btn">Upload & Send</button>
+          <p id="upload_msg" class="upload-msg"></p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:28px">Your recent uploads</h2>
+      <div id="my_uploads" class="grid"></div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile" class="tab-panel">
+      <h1>Your Profile</h1>
+
+      <div class="profile-card">
+        <p><strong>Name:</strong> <span id="username_display_2"></span></p>
+        <p><strong>Role:</strong> Hospital</p>
+        <p><strong>CID:</strong> <span id="profile_cid"></span></p>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
