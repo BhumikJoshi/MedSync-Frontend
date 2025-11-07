@@ -1,7 +1,7 @@
 /* =====================================
    BACKEND BASE URL
 ===================================== */
-const BACKEND = "https://fictional-space-orbit-jj9pwj49pj9wh56q9-5000.app.github.dev";
+const BACKEND = "https://medsync-backend-yk9h.onrender.com";
 
 /* =====================================
    API FETCH WRAPPER
