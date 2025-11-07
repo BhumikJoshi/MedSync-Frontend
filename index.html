@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MedSync — Unified Medical Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* -------- GLOBAL -------- */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  background: #f4faf9;
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------- HEADER -------- */
+header {
+  background: #e3f2f1;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #cde2e1;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #007b80;
+  text-decoration: none;
+}
+
+.brand .logo {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+header nav a {
+  background: #007b80;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-left: 12px;
+  transition: .2s;
+}
+header nav a:hover {
+  background: #005f63;
+}
+
+/* -------- CONTENT LAYOUT -------- */
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* -------- HERO -------- */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 1rem;
+}
+
+.hero h1 {
+  color: #003c40;
+  font-size: 2.4rem;
+  margin-bottom: .5rem;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: #4b5b5b;
+}
+
+/* -------- SERVICE CARDS -------- */
+.options {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  width: 230px;
+  background: white;
+  padding: 1.8rem 1rem;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.12);
+  transition: .28s;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+}
+
+.card-icon {
+  font-size: 2.8rem;
+  color: #007b80;
+  margin-bottom: .7rem;
+}
+
+.card a {
+  text-decoration: none;
+  color: #007b80;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.card a:hover {
+  text-decoration: underline;
+}
+
+/* -------- FOOTER -------- */
+footer {
+  background: #e3f2f1;
+  padding: 1.5rem;
+  text-align: center;
+  border-top: 1px solid #cde2e1;
+  font-size: .92rem;
+  color: #4b5b5b;
+}
+
+footer a {
+  color: #007b80;
+  margin: 0 8px;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="brand">
+    <div class="logo">+</div>
+    MedSync
+  </a>
+  <nav>
+    <a href="signup.html">Sign Up</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<div class="wrapper">
+
+  <section class="hero">
+    <h1>About</h1>
+    <p>MedSync streamlines access to medical services — connecting patients, hospitals and path labs on one platform.</p>
+  </section>
+
+  <section class="options">
+
+    <div class="card">
+      <div class="card-icon">👤</div>
+      <a href="signup.html?role=patient">Patient</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏥</div>
+      <a href="signup.html?role=hospital">Hospital</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🧪</div>
+      <a href="#">Path Lab</a>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  © 2025 MedSync  
+  <div>
+    <a href="#">Privacy Policy</a> |
+    <a href="#">Terms of Service</a> |
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
