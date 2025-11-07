@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/config.js"></script>
+</head>
+
+<body onload="initPatientDashboard()">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="navbar-left">Patient Dashboard</div>
+
+        <div class="navbar-right">
+            <span id="username_display"></span>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+
+        <a data-tab="welcome" class="active">Welcome</a>
+        <a data-tab="hospitals">Hospitals</a>
+        <a data-tab="profile">Profile</a>
+
+        <div class="sidebar-footer">© 2025 MedSync</div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <!-- ✅ WELCOME PANEL -->
+        <section id="welcome" class="tab-panel active">
+            <h1>Welcome!</h1>
+
+            <h2>All Reports</h2>
+            <div id="report_grid" class="grid"></div>
+        </section>
+
+        <!-- ✅ HOSPITAL LIST PANEL -->
+        <section id="hospitals" class="tab-panel">
+            <h1>Hospitals</h1>
+            <p class="muted">Hospitals that have shared reports with you:</p>
+
+            <div id="hospital_grid" class="grid"></div>
+        </section>
+
+        <!-- ✅ SINGLE HOSPITAL VIEW -->
+        <section id="hospital_view" class="tab-panel">
+            <button id="back_to_hospitals" class="back-btn">← Back</button>
+
+            <h1 id="hospital_title"></h1>
+
+            <div id="hospital_reports" class="grid"></div>
+        </section>
+
+        <!-- ✅ PROFILE -->
+        <section id="profile" class="tab-panel">
+            <h1>Your Profile</h1>
+
+            <div class="profile-card">
+                <p><strong>Name:</strong> <span id="profile_name"></span></p>
+                <p><strong>CID:</strong> <span id="cid_display"></span></p>
+                <p><strong>Role:</strong> Patient</p>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
