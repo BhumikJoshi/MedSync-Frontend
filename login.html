@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login — MedSync</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+<style>
+
+/* RESET */
+body {
+  margin: 0;
+  padding: 0;
+  background: #eef7f6;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* HEADER */
+header {
+  background: #e3f2f1;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #cde2e1;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #007b80;
+}
+
+.brand .logo {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+header nav a {
+  background: #007b80;
+  color: white;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  margin-left: 10px;
+  transition: .3s;
+}
+header nav a:hover {
+  background: #005f63;
+}
+
+/* CENTERED LOGIN CARD */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-card h2 {
+  margin-bottom: 1.5rem;
+  color: #007b80;
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #cbdedd;
+  font-size: 1rem;
+}
+
+button.login-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #007b80;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: .3s;
+}
+
+button.login-btn:hover {
+  background: #005f63;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+  color: #4b5b5b;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #007b80;
+  text-decoration: none;
+  margin: 0 10px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="brand" href="index.html" style="text-decoration:none;">
+  <div class="logo">+</div>
+  MedSync
+  </a>
+
+  <nav>
+    <a href="signup.html">Sign Up</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<div class="login-wrapper">
+  <div class="login-card">
+    <h2>Login</h2>
+
+    <form id="loginForm">
+      <input class="input" name="email" type="email" placeholder="Email Address" required>
+      <input class="input" name="password" type="password" placeholder="Password" required>
+      <button class="login-btn" type="submit">Login</button>
+    </form>
+
+    <p id="loginMsg" style="color:#555; margin-top:10px;"></p>
+  </div>
+</div>
+
+<footer>
+  © 2025 MedSync  
+  <div>
+    <a href="#">Privacy Policy</a> |
+    <a href="#">Terms of Service</a> |
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const body = { email: fd.get('email'), password: fd.get('password') };
+
+  try {
+    const r = await fetch(BACKEND + '/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const j = await r.json();
+    if (!r.ok) {
+      document.getElementById('loginMsg').innerText = j.error || "Login failed";
+      return;
+    }
+
+    // Save session
+    localStorage.setItem('med_token', j.token);
+    localStorage.setItem('med_role', j.role);
+    localStorage.setItem('med_cid', j.cid);
+    localStorage.setItem('med_user', j.username);
+
+    if (j.role === 'patient') location = 'patient_dashboard.html';
+    else location = 'hospital_dashboard.html';
+
+  } catch (err) {
+    document.getElementById('loginMsg').innerText = "Network error";
+  }
+});
+</script>
+
+</body>
+</html>
