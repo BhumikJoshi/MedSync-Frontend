@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up — MedSync</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+/* override global spacing */
+body {
+  background: #eef7f6;
+  margin: 0;
+  font-family: Poppins, sans-serif;
+}
+
+/* HEADER */
+header {
+  background: #e3f2f1;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #cde2e1;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #007b80;
+}
+
+.brand .logo {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+header nav a {
+  background: #007b80;
+  color: white;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  margin-left: 10px;
+  transition: .3s;
+}
+header nav a:hover {
+  background: #005f63;
+}
+
+/* ✅ CENTERING FIX */
+.signup-container {
+  min-height: calc(100vh - 220px);
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 20px;
+}
+
+/* SIGNUP CARD */
+.signup-card {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.signup-card h2 {
+  margin-bottom: 1.3rem;
+  color: #007b80;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* INPUTS */
+.input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #cbdedd;
+  font-size: 1rem;
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #007b80;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: .25s;
+}
+.signup-btn:hover {
+  background: #005f63;
+}
+
+/* MESSAGE */
+#signupMsg {
+  color: #444;
+  margin-top: 10px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #4b5b5b;
+  font-size: 0.92rem;
+  background: #e3f2f1;
+  border-top: 1px solid #cde2e1;
+}
+
+footer a {
+  color: #007b80;
+  margin: 0 8px;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+</style>
+</head>
+
+  <body>
+
+    <header>
+      <a class="brand" href="index.html" style="text-decoration:none;">
+        <div class="logo">+</div>
+        MedSync
+      </a>
+
+      <nav>
+        <a href="signup.html">Sign Up</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </header>
+
+<!-- ✅ CENTERED WRAPPER -->
+<div class="signup-container">
+  <div class="signup-card">
+
+    <h2>Create Account</h2>
+
+    <form id="signupForm">
+
+      <input class="input" name="username" placeholder="Full Name" required>
+
+      <input class="input" name="email" type="email" placeholder="Email Address" required>
+
+      <select class="input" name="role" id="roleSelect" required>
+        <option value="">Select Role</option>
+        <option value="patient">Patient</option>
+        <option value="hospital">Hospital</option>
+      </select>
+
+      <input class="input" name="password" type="password" placeholder="Password" required>
+
+      <input class="input" name="password2" type="password" placeholder="Confirm Password" required>
+
+      <button class="signup-btn" type="submit">Create Account</button>
+    </form>
+
+    <p id="signupMsg"></p>
+
+  </div>
+</div>
+
+  <footer>
+  © 2025 MedSync  
+  <div>
+    <a href="#">Privacy Policy</a> |
+    <a href="#">Terms of Service</a> |
+    <a href="#">Contact</a>
+  </div>
+  </footer>
+
+<script src="js/config.js"></script>
+<script>
+
+const params = new URLSearchParams(location.search);
+const role = params.get('role');
+if (role) document.getElementById('roleSelect').value = role;
+
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const fd = new FormData(e.target);
+  if (fd.get('password') !== fd.get('password2')) {
+    document.getElementById('signupMsg').innerText = "Passwords do not match.";
+    return;
+  }
+
+  const body = {
+    username: fd.get('username'),
+    email: fd.get('email'),
+    password: fd.get('password'),
+    role: fd.get('role')
+  };
+
+  try {
+    const r = await fetch(BACKEND + '/api/signup', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+
+    const j = await r.json();
+
+    if (r.ok) {
+      document.getElementById('signupMsg').innerText =
+        "Account created ✅ CID: " + j.cid + ". Redirecting to login...";
+      setTimeout(() => location = "login.html", 2000);
+    } else {
+      document.getElementById('signupMsg').innerText = j.error || "Signup failed";
+    }
+
+  } catch (err) {
+    document.getElementById('signupMsg').innerText = "Network error.";
+  }
+});
+</script>
+
+</body>
+</html>
